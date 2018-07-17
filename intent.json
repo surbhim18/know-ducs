@@ -133,6 +133,83 @@
                         "how many students were admitted in the year {batch}",
                         "how many {category} {gender} students were admitted to the course {course} in the year {batch}"
                     ]
+                },
+                {
+                    "name": "capacityIntent",
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "samples": [
+                                "for the course {course}",
+                                "{course}"
+                            ]
+                        },
+                        {
+                            "name": "category",
+                            "type": "category",
+                            "samples": [
+                                "{category}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "what is the capacity for the {category} students in the course {course}",
+                        "how many {category} students are admitted each year in the course {course}",
+                        "how many {category} students can be admitted in the course {course}",
+                        "maximum {category} students in the course {course}",
+                        "what is the strength of {category} students in the course {course}",
+                        "what is the strength of the course {course}",
+                        "maximum students that can be in {course}",
+                        "how many students can be admitted in the course {course} each year",
+                        "how many students are admitted each year in the course {course}",
+                        "what is the capacity of the course {course}"
+                    ]
+                },
+                {
+                    "name": "CourseInDept",
+                    "slots": [],
+                    "samples": [
+                        "which courses in department",
+                        "courses in department",
+                        "what courses are taught in the department"
+                    ]
+                },
+                {
+                    "name": "admissionProcedure",
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "samples": [
+                                "for the course {course}",
+                                "{course}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "what is the admission procedure for {course}",
+                        "how to take admission in {course}",
+                        "admission procedure for course {course}",
+                        "what is the admission procedure for the course {course}"
+                    ]
+                },
+                {
+                    "name": "dataOfYear",
+                    "slots": [
+                        {
+                            "name": "year",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "samples": [
+                                "for the year {year}",
+                                "{year}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "is the data for the year {year} available",
+                        "do you have data for the year {year}"
+                    ]
                 }
             ],
             "types": [
@@ -371,6 +448,63 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "capacityIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.462627479208"
+                            }
+                        },
+                        {
+                            "name": "category",
+                            "type": "category",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.762612259458.413445763814"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "admissionProcedure",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.462627479208"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "dataOfYear",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "year",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.177977197283.137570379111"
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -444,6 +578,15 @@
                     {
                         "type": "PlainText",
                         "value": "what is the gender?"
+                    }
+                ]
+            },
+			{
+                "id": "Elicit.Slot.177977197283.137570379111",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "for which year do you want to know the availability of data"
                     }
                 ]
             }
