@@ -637,7 +637,8 @@ def result(intent, session):
         else:
             #we have neither subject nor semester
             #elicit subject
-            speech_output = "We have neither subject nor semester"
+            speech_output = "you seem to have forgot to provide the subject, what's the subject"
+            return build_response(session_attributes, build_dialog_elicit_speechlet("subject", intent, card_title, speech_output, reprompt_text))
     elif existsRollno:
         #query 1,2,3
         if existsSemester and existsSubject:
@@ -652,10 +653,11 @@ def result(intent, session):
         else:
             #we have neither subject or semester
             #elicit subject
-            speech_output = "we have neither subject or semester"
+            speech_output = "you seem to have forgot to provide the subject, what's the subject"
+            return build_response(session_attributes, build_dialog_elicit_speechlet("subject", intent, card_title, speech_output, reprompt_text))
     else:
-        #cant help ya
-        speech_output = "cant help ya"
+        speech_output = "you seem to have provided wrong query format, you can always ask for help or try again"
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
        
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
@@ -1255,6 +1257,19 @@ def handle_session_end_request():
     should_end_session = True
     
     return build_response({}, build_speechlet_response(card_title, speech_output, None, should_end_session))
+    
+    
+def handle_wrong_input():
+    
+    card_title = "Oops"
+    
+    speech_output = "you seem to have provided wrong query format. you can always ask for help, or try again"
+    reprompt_text = "Oops, wrong input!"
+    
+    should_end_session = False
+    
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+    
 
 # --------------- Events ------------------
 
@@ -1279,7 +1294,7 @@ def on_intent(intent_request, session):
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     else:
-        raise ValueError("Invalid intent")
+        return handle_wrong_input()
         
 def on_session_ended(session_ended_request, session):
     session_attributes = {}
