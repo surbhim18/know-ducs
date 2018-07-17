@@ -1,0 +1,450 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "know d u c s",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ResultIntent",
+                    "slots": [
+                        {
+                            "name": "batch",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "samples": [
+                                "{batch} batch",
+                                "Batch {batch}"
+                            ]
+                        },
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "samples": [
+                                "Course {course}",
+                                "{course}"
+                            ]
+                        },
+                        {
+                            "name": "subject",
+                            "type": "subjects",
+                            "samples": [
+                                "{subject}"
+                            ]
+                        },
+                        {
+                            "name": "semester",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{semester} semester",
+                                "Semester {semester}"
+                            ]
+                        },
+                        {
+                            "name": "rollno",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{rollno} roll number",
+                                "Roll number {rollno}"
+                            ]
+                        },
+                        {
+                            "name": "stat",
+                            "type": "stats",
+                            "samples": [
+                                "{stat}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "How much did roll number {rollno} of {course} in semester {semester} score in subject {subject} in {batch}",
+                        "what were the {stat} marks in semester {semester} subject {subject} course {course} batch {batch}",
+                        "what were the {stat} marks in semester {semester} course {course} batch {batch}",
+                        "How much did roll number {rollno} of {course} from batch {batch} score in {subject}",
+                        "How much did roll number {rollno} score in semester {semester} in batch {batch} ",
+                        "How much did roll number {rollno} of {course} score in {subject} in {batch} ",
+                        "How much did roll number {rollno} scored in {subject} Batch {batch} course {course}",
+                        "How much did roll no {rollno} score in semester {semester}  Batch {batch} Course {course}",
+                        "What was the result of roll number {rollno} in {subject} of {course}  batch  {batch}",
+                        "What was the result of roll number {rollno} in {subject} of {course} {batch}"
+                    ]
+                },
+                {
+                    "name": "AdmissionIntent",
+                    "slots": [
+                        {
+                            "name": "category",
+                            "type": "category",
+                            "samples": [
+                                "{category}"
+                            ]
+                        },
+                        {
+                            "name": "gender",
+                            "type": "gender",
+                            "samples": [
+                                "{gender}"
+                            ]
+                        },
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "samples": [
+                                "Course {course}",
+                                "{course}"
+                            ]
+                        },
+                        {
+                            "name": "batch",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "samples": [
+                                "{batch} batch",
+                                "Batch {batch}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "how many students were admitted",
+                        "{gender} {course}",
+                        "{gender} {category} {batch}",
+                        "{category} {course} {batch}",
+                        "{category} {gender} {batch}",
+                        "{course} {batch}",
+                        "{gender} {batch}",
+                        "{category} {batch}",
+                        "admission {batch}",
+                        "{category} {gender} {course} {batch}",
+                        "how many students in {course} {batch}",
+                        "how many {category} {gender} students were admitted in the year {batch}",
+                        "how many {category} students were admitted to the course in the year {batch}",
+                        "how many {gender} students were admitted to the course {course} in the year {batch}",
+                        "how many {gender} students were admitted in the year {batch}",
+                        "how many stundents were admitted to the course {course} in the year {batch}",
+                        "how many {category} students were admitted in the year {batch}",
+                        "how many students were admitted in the year {batch}",
+                        "how many {category} {gender} students were admitted to the course {course} in the year {batch}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "courses",
+                    "values": [
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "MCA",
+                                "synonyms": [
+                                    "m c a",
+                                    "mca"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "MSc",
+                                "synonyms": [
+                                    "m s c",
+                                    "msc"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "subjects",
+                    "values": [
+                        {
+                            "id": "MCS-326",
+                            "name": {
+                                "value": "Information security"
+                            }
+                        },
+                        {
+                            "id": "MCS-301",
+                            "name": {
+                                "value": "Minor Project"
+                            }
+                        },
+                        {
+                            "id": "MCS-311",
+                            "name": {
+                                "value": "Algorithms"
+                            }
+                        },
+                        {
+                            "id": "MCS-312",
+                            "name": {
+                                "value": "Data Mining"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "stats",
+                    "values": [
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "average",
+                                "synonyms": [
+                                    "avg"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "maximum",
+                                "synonyms": [
+                                    "max"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "minimum",
+                                "synonyms": [
+                                    "min"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "category",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "obc"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "st"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sc"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "general"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "gender",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "female"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "male"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "ResultIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "batch",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.131046868003"
+                            }
+                        },
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.462627479208"
+                            }
+                        },
+                        {
+                            "name": "subject",
+                            "type": "subjects",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.1034086129831"
+                            }
+                        },
+                        {
+                            "name": "semester",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.1399437754704"
+                            }
+                        },
+                        {
+                            "name": "rollno",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.731588862121"
+                            }
+                        },
+                        {
+                            "name": "stat",
+                            "type": "stats",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.36079995635"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "AdmissionIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "category",
+                            "type": "category",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.762612259458.413445763814"
+                            }
+                        },
+                        {
+                            "name": "gender",
+                            "type": "gender",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.762612259458.989326361039"
+                            }
+                        },
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.462627479208"
+                            }
+                        },
+                        {
+                            "name": "batch",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.276410120379.131046868003"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.276410120379.1034086129831",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the subject"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.276410120379.1399437754704",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the semester"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.276410120379.731588862121",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the roll number"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.276410120379.36079995635",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the stat"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.276410120379.131046868003",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the batch"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.276410120379.462627479208",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the course"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.762612259458.413445763814",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What category?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.762612259458.989326361039",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what is the gender?"
+                    }
+                ]
+            }
+        ]
+    }
+}
