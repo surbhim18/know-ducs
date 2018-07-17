@@ -356,7 +356,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.131046868003"
+                                "elicitation": "batch_result"
                             }
                         },
                         {
@@ -365,7 +365,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.462627479208"
+                                "elicitation": "course_result"
                             }
                         },
                         {
@@ -374,7 +374,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.1034086129831"
+                                "elicitation": "subject_result"
                             }
                         },
                         {
@@ -383,7 +383,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.1399437754704"
+                                "elicitation": "semester_result"
                             }
                         },
                         {
@@ -392,7 +392,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.731588862121"
+                                "elicitation": "rollno_result"
                             }
                         },
                         {
@@ -401,7 +401,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.36079995635"
+                                "elicitation": "stat_result"
                             }
                         }
                     ]
@@ -417,7 +417,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.762612259458.413445763814"
+                                "elicitation": "category_admission"
                             }
                         },
                         {
@@ -426,7 +426,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.762612259458.989326361039"
+                                "elicitation": "gender_admission"
                             }
                         },
                         {
@@ -435,7 +435,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.462627479208"
+                                "elicitation": "course_admission"
                             }
                         },
                         {
@@ -444,7 +444,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.131046868003"
+                                "elicitation": "batch_admission"
                             }
                         }
                     ]
@@ -460,7 +460,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.462627479208"
+                                "elicitation": "course_capacity"
                             }
                         },
                         {
@@ -469,7 +469,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.762612259458.413445763814"
+                                "elicitation": "category_capacity"
                             }
                         }
                     ]
@@ -485,7 +485,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.276410120379.462627479208"
+                                "elicitation": "course_admission_proc"
                             }
                         }
                     ]
@@ -501,7 +501,7 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.177977197283.137570379111"
+                                "elicitation": "year_data_year"
                             }
                         }
                     ]
@@ -510,7 +510,7 @@
         },
         "prompts": [
             {
-                "id": "Elicit.Slot.276410120379.1034086129831",
+                "id": "subject_result",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -519,7 +519,7 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.276410120379.1399437754704",
+                "id": "semester_result",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -528,7 +528,7 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.276410120379.731588862121",
+                "id": "rollno_result",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -537,7 +537,7 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.276410120379.36079995635",
+                "id": "stat_result",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -546,7 +546,16 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.276410120379.131046868003",
+                "id": "batch_admission",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the batch"
+                    }
+                ]
+            },
+			{
+                "id": "batch_result",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -555,7 +564,7 @@
                 ]
             },
             {
-                "id": "Elicit.Slot.276410120379.462627479208",
+                "id": "course_result",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -563,8 +572,35 @@
                     }
                 ]
             },
+			{
+                "id": "course_admission",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the course"
+                    }
+                ]
+            },
+			{
+                "id": "course_admission_proc",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "for what course do you want to know the admission procedure"
+                    }
+                ]
+            },
+			{
+                "id": "course_capacity",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "For what course do you want the information?"
+                    }
+                ]
+            },
             {
-                "id": "Elicit.Slot.762612259458.413445763814",
+                "id": "category_admission",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -572,8 +608,17 @@
                     }
                 ]
             },
+			{
+                "id": "category_capacity",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "which category"
+                    }
+                ]
+            },
             {
-                "id": "Elicit.Slot.762612259458.989326361039",
+                "id": "gender_admission",
                 "variations": [
                     {
                         "type": "PlainText",
@@ -582,7 +627,7 @@
                 ]
             },
 			{
-                "id": "Elicit.Slot.177977197283.137570379111",
+                "id": "year_data_year",
                 "variations": [
                     {
                         "type": "PlainText",
