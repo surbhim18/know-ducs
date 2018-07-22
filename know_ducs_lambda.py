@@ -107,10 +107,6 @@ def get_welcome_response():
 
 def clear_session_attributes():
     session_attributes = {}
-    
-def clear_slot_variables(intent):
-    intent['slots'] = {}
-    return intent
 
 def is_in_intent(intent,slot_name):
     if 'value' in intent['slots'][slot_name]:
@@ -713,7 +709,6 @@ def adm_query_1(intent, session, batch):
     output = "The number of students admitted in the year "+batch+" is "+str(totalStudents)
    
     clear_session_attributes()
-    intent = clear_slot_variables
     return output
     
 def adm_query_2(intent, session, batch, course):
@@ -750,7 +745,6 @@ def adm_query_2(intent, session, batch, course):
     output = "The number of students admitted to the course "+course+" in the year "+batch+" is "+str(total)
     
     clear_session_attributes()
-    intent = clear_slot_variables
     return output
 
 def adm_query_3(intent, session, batch, gender):
@@ -822,7 +816,6 @@ def adm_query_3(intent, session, batch, gender):
     output = "The number of "+gender+" students admitted in the year "+batch+" is "+str(totalStudents)
    
     clear_session_attributes()
-    intent = clear_slot_variables
     return output
 
 def adm_query_4(intent, session, batch, gender, course):
@@ -865,7 +858,6 @@ def adm_query_4(intent, session, batch, gender, course):
     output = "The number of "+gender+" students admitted in the year "+batch+" is "+str(total)
     
     clear_session_attributes()
-    intent = clear_slot_variables
     return output
 
 def adm_query_5(intent, session, batch, category):
@@ -933,7 +925,6 @@ def adm_query_5(intent, session, batch, category):
     output = "The number of "+category+" students admitted in the year "+batch+" is "+str(totalStudents)
    
     clear_session_attributes()
-    intent = clear_slot_variables
     return output
 
 def adm_query_6(intent, session, batch, category, course):
@@ -988,7 +979,6 @@ def adm_query_6(intent, session, batch, category, course):
     output = "The number of "+category+" students admitted to the course "+course+" in the year "+batch+" is "+str(total)
    
     clear_session_attributes()
-    intent = clear_slot_variables
     return output
     
 def adm_query_7(intent, session, batch, category, gender):
@@ -1055,7 +1045,6 @@ def adm_query_7(intent, session, batch, category, gender):
     output = "The number of "+category+" " +gender+" students admitted in the year "+batch+" is "+str(totalStudents)
    
     clear_session_attributes()
-    intent = clear_slot_variables
     return output
 
 def adm_query_8(intent, session, batch, category, gender, course):
@@ -1109,20 +1098,7 @@ def adm_query_8(intent, session, batch, category, gender, course):
     output = "The number of "+category+" "+gender+" students admitted to the course "+course+" in the year "+batch+" is "+str(total)
    
     clear_session_attributes()
-    intent = clear_slot_variables
     return output
-
-def is_in_intent(intent,slot_name):
-    if 'value' in intent['slots'][slot_name]:
-        return True
-        
-    return False
-    
-def is_in_session_attributes(key):
-    if key in session_attributes:
-        return True
-    
-    return False
 
 def admission(intent, session):
     
@@ -1191,6 +1167,7 @@ def admission(intent, session):
     return build_response({}, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
 # ---------------------------------------------- admission queries end ------------------------------------------------- #
+
 # ---------------------------------------------- basic queries begin --------------------------------------------------- #
 
 def dataAvailable(intent, session):
@@ -1235,6 +1212,51 @@ def capacity(intent, session):
     should_end_session = False
     return build_response({}, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
+def coursesDept(intent, session):
+    
+    card_title = "Basic Query"
+    intent_name = intent['name']
+
+    output = "The department of computer science offers the following courses - MSC Computer Science, Masters in computer applications that is MCA and PHD."
+    
+    clear_session_attributes()
+    speech_output = output
+    reprompt_text = speech_output
+    
+    should_end_session = False
+    return build_response({}, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+    
+def placementTeam(intent, session):
+    
+    card_title = "Basic Query"
+    intent_name = intent['name']
+
+    output = "The department have a faculty placement advisor and each year 6 students are selected as placement coordinators. 3 from MCA and 3 from MSC. " +\
+            "A few companies that visit the department for recruitement are - Adobe, Aricent, Cadence, Capgemini, Deloitte, Drishti, Global Logic, HCL, IBM, " +\
+            "Infogain, Make My Trip, Mcafee, Microsoft, Nagarro, Snapdeal, TCS, Tech Mahindra, Thoroughgood, Wipro and many more!"
+    
+    clear_session_attributes()
+    speech_output = output
+    reprompt_text = speech_output
+    
+    should_end_session = False
+    return build_response({}, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+    
+def placement(intent, session):
+    
+    card_title = "Basic Query"
+    intent_name = intent['name']
+
+    output = "The placement record for the department has been phenomenal over the past years. " +\
+            "A lot of companies visit the department for recruitement. A few companies that visit the department for recruitement are - Adobe, Aricent, Cadence, Capgemini, Deloitte, Drishti, Global Logic, HCL, IBM, " +\
+            "Infogain, Make My Trip, Mcafee, Microsoft, Nagarro, Snapdeal, TCS, Tech Mahindra, Thoroughgood, Wipro and many more!"
+    
+    clear_session_attributes()
+    speech_output = output
+    reprompt_text = speech_output
+    
+    should_end_session = False
+    return build_response({}, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
 # ---------------------------------------------- basic queries end ----------------------------------------------------- #
 
@@ -1242,8 +1264,11 @@ def get_help_response():
     
     card_title = "Help"
     
-    speech_output = "Hola!"
-    reprompt_text = "Aloha!"
+    speech_output = "Hello user! This ia a skill to provide you with any admission related or result related or any other general query related with the department of computer science of university of delhi, DUCS, in short. "+\
+                    "Simply ask anything you want to know about DUCS. The available admission queries are - list of available courses in DUCS, the admission procedure for each course, to know how many students were admitted in a particular year, " +\
+                    "number of seats available in each course, and many more. While of result, the available queries are - result of a particular student, result of batch, comparison of results, information of topper, and many more! " +|
+                    "Other general queries include information about the placements! Whatever you want to know, ask away!"
+    reprompt_text = speech_output
     
     should_end_session = False
     
@@ -1289,6 +1314,19 @@ def on_intent(intent_request, session):
         return result(intent, session)
     elif intent_name == "AdmissionIntent":
         return admission(intent, session)
+    elif intent_name == "capacityIntent":
+        return capacity(intent, session)
+    elif intent_name == "admissionProcedure":
+        return admProc(intent, session)
+    elif intent_name == "dataOfYear":
+        return dataAvailable(intent, session)
+    elif intent_name == "courseInDept":
+        return coursesDept(intent, session)
+    elif intent_name == "placementTeam":
+        return placementTeam(intent, session)
+    elif intent_name == "placement":
+        return placement(intent, session)
+
     elif intent_name == "AMAZON.HelpIntent":
         return get_help_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
@@ -1314,4 +1352,3 @@ def lambda_handler(event, context):
         return on_intent(event['request'], event['session'])
     elif event['request']['type'] == "SessionEndedRequest":
         return on_session_ended(event['request'], event['session'])
-
