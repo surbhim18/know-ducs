@@ -9,7 +9,26 @@
                 },
                 {
                     "name": "AMAZON.HelpIntent",
-                    "samples": []
+                    "samples": [
+                        "show sample query please",
+                        "show sample query",
+                        "show sample",
+                        "sample query",
+                        "sample query please",
+                        "sample",
+                        "show me a demo",
+                        "show a demo",
+                        "demo",
+                        "please help me",
+                        "please help",
+                        "help me",
+                        "help",
+                        "help me please",
+                        "how can i get the information i need",
+                        "how can i get the information",
+                        "how to ask queries",
+                        "i dont know what to do"
+                    ]
                 },
                 {
                     "name": "AMAZON.StopIntent",
@@ -113,6 +132,38 @@
                         }
                     ],
                     "samples": [
+                        "number of {gender} students admitted",
+                        "number of {gender} students admitted in the year {batch}",
+                        "number of {category} students admitted",
+                        "number of {category} students admitted in the year {batch}",
+                        "number of {category} {gender} students admitted",
+                        "number of {category} {gender} students admitted in the year {batch}",
+                        "number of students admitted",
+                        "number of students admitted in the year {batch}",
+                        "the number of {gender} students admitted",
+                        "the number of {gender} students admitted in the year {batch}",
+                        "the number of {category} students admitted",
+                        "the number of {category} students admitted in the year {batch}",
+                        "the number of {category} {gender} students admitted",
+                        "the number of {category} {gender} students admitted in the year {batch}",
+                        "the number of students admitted",
+                        "the number of students admitted in the year {batch}",
+                        "what is the number of {gender} students admitted",
+                        "what is the number of {gender} students admitted in the year {batch}",
+                        "what is the number of {category} students admitted",
+                        "what is the number of {category} students admitted in the year {batch}",
+                        "what is the number of {category} {gender} students admitted",
+                        "what is the number of {category} {gender} students admitted in the year {batch}",
+                        "what is the number of students admitted",
+                        "what is the number of students admitted in the year {batch}",
+                        "tell me the number of {gender} students admitted",
+                        "tell me the number of {gender} students admitted in the year {batch}",
+                        "tell me the number of {category} students admitted",
+                        "tell me the number of {category} students admitted in the year {batch}",
+                        "tell me the number of {category} {gender} students admitted",
+                        "tell me the number of {category} {gender} students admitted in the year {batch}",
+                        "tell me the number of students admitted",
+                        "tell me the number of students admitted in the year {batch}",
                         "how many students were admitted",
                         "{gender} {course}",
                         "{gender} {category} {batch}",
@@ -123,6 +174,15 @@
                         "{category} {batch}",
                         "admission {batch}",
                         "{category} {gender} {course} {batch}",
+                        "tell me how many students in {course} {batch}",
+                        "tell me how many {category} {gender} students were admitted in the year {batch}",
+                        "tell me how many {category} students were admitted to the course in the year {batch}",
+                        "tell me how many {gender} students were admitted to the course {course} in the year {batch}",
+                        "tell me how many {gender} students were admitted in the year {batch}",
+                        "tell me how many stundents were admitted to the course {course} in the year {batch}",
+                        "tell me how many {category} students were admitted in the year {batch}",
+                        "tell me how many students were admitted in the year {batch}",
+                        "tell me how many {category} {gender} students were admitted to the course {course} in the year {batch}",
                         "how many students in {course} {batch}",
                         "how many {category} {gender} students were admitted in the year {batch}",
                         "how many {category} students were admitted to the course in the year {batch}",
@@ -209,6 +269,62 @@
                     "samples": [
                         "is the data for the year {year} available",
                         "do you have data for the year {year}"
+                    ]
+                },
+                {
+                    "name": "placementTeam",
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses"
+                        }
+                    ],
+                    "samples": [
+                        "how is the placement team in the department for {course}",
+                        "how is the placement team in the department",
+                        "how is the placement team in the department for the course {course}",
+                        "what about the department placement team",
+                        "what about the placement team for {course}",
+                        "what about the placement team for the course {course}",
+                        "what about the placement team for the department",
+                        "is there a placement team in the department",
+                        "is there a placement team for {course}",
+                        "is there a placement team in the department for the course {course}",
+                        "is there a placement team for the course {course}"
+                    ]
+                },
+                {
+                    "name": "placement",
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses"
+                        }
+                    ],
+                    "samples": [
+                        "how is the placement record in the department for {course}",
+                        "how is the placement in the department for {course}",
+                        "how is the placement in the department",
+                        "how is the placement record in the department for the course {course}",
+                        "how is the placement in the department for the course {course}",
+                        "what about the department placement record",
+                        "what about the department placement",
+                        "what about the placement record for {course}",
+                        "what about the placement for {course}",
+                        "what about the placement record for the course {course}",
+                        "what about the placement for the course {course}",
+                        "what about the placement record for the department",
+                        "what about the placement for the department",
+                        "is there a placement record of the department",
+                        "is there a placement oppurtunity from the department",
+                        "is there placement for {course}",
+                        "is there a placement record for {course}",
+                        "is there a placement record in the department for the course {course}",
+                        "is there placement in the department for the course {course}",
+                        "is there placement for the course {course}",
+                        "is there a placement record for the course {course}",
+                        "what about the placement for the department",
+                        "what about the placement for course {course}"
                     ]
                 }
             ],
@@ -554,7 +670,7 @@
                     }
                 ]
             },
-			{
+            {
                 "id": "batch_result",
                 "variations": [
                     {
@@ -572,7 +688,7 @@
                     }
                 ]
             },
-			{
+            {
                 "id": "course_admission",
                 "variations": [
                     {
@@ -581,7 +697,7 @@
                     }
                 ]
             },
-			{
+            {
                 "id": "course_admission_proc",
                 "variations": [
                     {
@@ -590,7 +706,7 @@
                     }
                 ]
             },
-			{
+            {
                 "id": "course_capacity",
                 "variations": [
                     {
@@ -608,7 +724,7 @@
                     }
                 ]
             },
-			{
+            {
                 "id": "category_capacity",
                 "variations": [
                     {
@@ -626,7 +742,7 @@
                     }
                 ]
             },
-			{
+            {
                 "id": "year_data_year",
                 "variations": [
                     {
