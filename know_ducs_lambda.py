@@ -1,13 +1,33 @@
-import random
 import boto3
 import time
 import json
 import decimal
 from boto3.dynamodb.conditions import Key, Attr
+from random import randint
+from datetime import datetime, timedelta
 
 dynamodb = boto3.resource('dynamodb')
 
 # --------------- Helpers that build all of the responses ----------------------
+
+def build_speechlet_response_link(title, output, reprompt_text, should_end_session):
+    return {
+        'outputSpeech': {
+            'type': 'PlainText',
+            'text': output
+        },
+        'card': {
+            'type': 'LinkAccount'
+        },
+        'reprompt': {
+            'outputSpeech': {
+                'type': 'PlainText',
+                'text': reprompt_text
+            }
+        },
+        'shouldEndSession': should_end_session
+    }
+    
 
 def build_speechlet_response(title, speech_output, reprompt_text, should_end_session):
     return {
@@ -85,25 +105,15 @@ subCodeSem = {'MCS-301':3,'MCS-311':3,'MCS-312':3,'MCS-313':3 ,'MCS-316':3,'MCS-
 subCodeSem2 = {3: ['MCS-301','MCS-311','MCS-312','MCS-313','MCS-316','MCS-326'] }
 subCodeSubName = {'MCS-301':'Minor Project','MCS-311':'Algorithms','MCS-312':'Data mining','MCS-313':'Network Science' ,'MCS-316':'Operating Systems','MCS-326':'Information security'}
 
+welcome_greetings = ["Hello ","Howdy ","Hi ", "Welcome "]
 # --------------------------- Global variables ---------------------------------
 
+valid_user = False          # entered passcode correctly
+authorized_user = False     # is allowed access
+pass_pin = 0
+user_details = {}
 
 # --------------- Functions that control the skill's behavior ------------------
-
-welcome_greetings = ["Hello! ","Howdy! ","Hi! "]
-
-def get_welcome_response():
-    
-    session_attributes = {}
-    card_title = "Welcome"
-    wel = welcome_greetings[random.randint(0,len(welcome_greetings)-1)]
-    
-    speech_output = wel + "Welcome! Ask any admission or result related queries!."
-    reprompt_text = "For help, say help!"
-    
-    should_end_session = False
-    
-    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
 def clear_session_attributes():
     session_attributes = {}
@@ -119,6 +129,210 @@ def is_in_session_attributes(key):
         return True
     
     return False
+    
+def enough_time_passed(time):
+    
+    df_format = "%Y-%m-%d %H:%M:%S.%f"
+    old = datetime.strptime(time,df_format)
+    new = datetime.now()
+    
+    diff = new - old
+    dstr = str(diff)
+    print(diff)
+
+    days=0
+    split1 = dstr.split(' ')
+    if (len(split1) > 1):
+	    days = split1[0]
+	    dstr = split1[2]
+	
+    split2 = dstr.split(':')
+    hours = split2[0]
+    minutes = split2[1]
+
+    result = str(days) + " days " + str(hours) + " hours " + str(minutes) + " minutes"
+    print(result)
+
+
+    if int(days) >= 1 or int(hours) >= 10:       #put condition here
+        return True
+    else:
+        return False
+
+
+# ----------------------------------------------- authentication -------------------------------------------------------- #
+
+def get_user_info(access_token):
+    
+    #print access_token
+    amazonProfileURL = 'https://api.amazon.com/user/profile?access_token='
+    
+    r = requests.get(url=amazonProfileURL+access_token)
+    if r.status_code == 200:
+        return r.json()
+    else:
+        return False
+
+
+def send_email(user, pwd, recipient, subject, body):
+    import smtplib
+
+    FROM = user
+    TO = recipient if isinstance(recipient, list) else [recipient]
+    SUBJECT = subject
+    TEXT = body
+
+    # Prepare actual message
+    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.ehlo()
+        server.starttls()
+        server.login(user, pwd)
+        server.sendmail(FROM, TO, message)
+        server.close()
+        return 1
+    except:
+        return 0
+        
+        
+def send_passcode(to_mail):
+    
+    global pass_pin
+    pass_pin = str(randint(1000, 9999))
+    from_mail = "alexa.ducs.du@gmail.com"
+    to_mail = to_mail
+    sub = "Know DUCS - Authentication"
+    text = "Your passcode is: " + pass_pin
+    return send_email(from_mail, "iknowducs", to_mail, sub, text)
+    
+
+def is_allowed_access(email):
+    
+    global authorized_user
+    emails = ["surbhim.mcs17.du@gmail.com"]
+    #surbhim.mcs17.du@gmail.com
+    if email in emails:
+        authorized_user = True
+        return True
+    else:
+        return False
+    
+
+def update_login_time(user_id):
+    
+    table = dynamodb.Table('Users')
+    response = table.update_item(
+       Key={
+           'user_id': user_id
+       },
+       ConditionExpression=Key('user_id').eq(user_id),
+       UpdateExpression="set login_time = :lat",
+       ExpressionAttributeValues={':lat': str(datetime.now())},
+       ReturnValues="UPDATED_NEW"
+       )
+
+
+def update_access(user_id, access_type):
+    
+    print(access_type)
+    table = dynamodb.Table('Users')
+    response = table.update_item(
+       Key={
+           'user_id': user_id
+       },
+       ConditionExpression=Key('user_id').eq(user_id),
+       UpdateExpression="set access = :val",
+       ExpressionAttributeValues={':val': access_type},
+       ReturnValues="UPDATED_NEW"
+       )
+
+    
+def put_new_user():
+    
+    table = dynamodb.Table('Users')
+    table.put_item(
+        Item=
+        {'user_id' : user_details['user_id'],
+         'name'    : user_details['name'],
+         'email'   : user_details['email'],
+         'access'  : False,
+         'login_time' : str(datetime.now())
+        }
+        )
+
+
+def login(intent, session):
+    
+    global valid_user
+    
+    card_title = "LOGIN"
+    should_end_session = False
+    
+    if authorized_user == False:
+        speech_output = "I am not sure, what you mean. Ask for help."
+        reprompt_text = "To know what you can do, say help."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+    
+    if valid_user == True:
+        speech_output = "You are already logged in."
+        reprompt_text = "To know what you can do, say help."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+    
+    
+    if not is_in_intent(intent,'pin'):
+        if send_passcode(user_details['email']) == 1:
+            speech_output = speech_output + " Your passcode has been sent to your linked email account. Kindly use it to log in. "
+            should_end_session = False
+        else:
+            speech_output = speech_output + " There was a problem sending your passcode. Report issue. "
+            should_end_session = True
+        reprompt_text = " Enter your passcode. "
+        return build_response(session_attributes, build_dialog_elicit_speechlet("pin", intent, card_title, speech_output, reprompt_text))
+    
+    if 'value' not in intent['slots']['pin']:
+        speech_output = "I am not sure what you said. Enter PIN again."
+        reprompt_text = "What is your PIN?"
+    else:
+        pin = intent['slots']['pin']['value']
+        if pin == pass_pin:
+            update_access(user_details['user_id'], True)
+            update_login_time(user_details['user_id'])
+            valid_user = True
+            speech_output = "Login successful."
+            reprompt_text = "To know what you can do, say help."
+        else:
+            speech_output = "That passcode is incorrect. Login failed. Bye "
+            reprompt_text = ""
+            should_end_session = True    
+         
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+    
+    
+def logout(intent, session):
+    
+    global valid_user
+    
+    card_title = "LOGOUT"
+    should_end_session = False
+
+    if authorized_user == False:
+        speech_output = "I am not sure, what you are saying. Ask for help."
+        reprompt_text = "To know what you can do, say help."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+    if valid_user == False:
+        speech_output = "You are already logged out. Say help, to find out what you can ask."
+    else:
+        valid_user = False
+        update_access(user_details['user_id'], False)
+        speech_output = "You have been logged out, successfully. Say stop, to exit. Ask for help to know more!"
+        
+    reprompt_text = ""
+        
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
 
 # ------------------------------------------------ result queries begin ------------------------------------------------- #
 
@@ -568,7 +782,18 @@ def result(intent, session):
     
     card_title = "Result"
     intent_name = intent['name']
-    
+    should_end_session = False
+
+    if authorized_user == False:
+        speech_output = "I am not sure, what you want. Quit poking. Ask for help."
+        reprompt_text = "To know what you can do, say help."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+    if valid_user == False:
+        speech_output = "You need to log in, to access this data. Say LOG IN."
+        reprompt_text = "To know what you can do, say help."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
     existsCourse = False
     existsBatch = False
     existsSemester = False
@@ -655,7 +880,6 @@ def result(intent, session):
         speech_output = "you seem to have provided wrong query format, you can always ask for help or try again"
         return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
        
-    should_end_session = False
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
 # ------------------------------------------------- result queries end ------------------------------------------------- #
@@ -1105,6 +1329,18 @@ def admission(intent, session):
     card_title = "Admission"
     intent_name = intent['name']
 
+    should_end_session = False
+    
+    if authorized_user == False:
+        speech_output = "Why do you want to know that? Quit poking. Ask for help."
+        reprompt_text = "To know what you can do, say help."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+    if valid_user == False:
+        speech_output = "It seems like you forgot to log in. Say LOG IN."
+        reprompt_text = "To know what you can do, say help."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
     existsCourse = False
     existsBatch = False
     existsCategory = False
@@ -1163,7 +1399,6 @@ def admission(intent, session):
     speech_output = output
     reprompt_text = speech_output
     
-    should_end_session = False
     return build_response({}, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
 # ---------------------------------------------- admission queries end ------------------------------------------------- #
@@ -1260,17 +1495,83 @@ def placement(intent, session):
 
 # ---------------------------------------------- basic queries end ----------------------------------------------------- #
 
+def get_welcome_response(access_token):
+    
+    global user_details
+    global valid_user
+
+    user_details = {}
+    session_attributes = {}
+    
+    card_title = "Welcome"
+    
+    if access_token is None:
+        speech_output = "Your user details are not available at this time.  Have you completed account linking via the Alexa app?"
+        reprompt_text = ""
+        should_end_session = True
+        return build_response(session_attributes, build_speechlet_response_link(card_title, speech_output, reprompt_text, should_end_session))
+    
+    #fetching user details using the access token
+    user_details = get_user_info(access_token)
+    
+    if user_details is None:
+        speech_output = "There was a problem getting your user details."
+        reprompt_text = ""
+        should_end_sesion = True
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+    
+    #access users table
+    table = dynamodb.Table('Users')
+    response = table.query(KeyConditionExpression=Key('user_id').eq(user_details['user_id']))
+    item = response['Items']
+    
+    #if new user, user added to database with access as False
+    if bool(item) == False:     
+        put_new_user()          
+    
+    wel = welcome_greetings[randint(0,len(welcome_greetings)-1)]
+    fname = user_details['name'].split(" ")[0]
+    
+    if not is_allowed_access(user_details['email']):
+        speech_output = wel + fname + "! Ask queries related to D U C S! "
+        reprompt_text = ""
+    else:
+        speech_output = wel + fname + "! To access authorized data, say log in! "
+        reprompt_text = "Get general queries answered, without logging in! "
+    
+    should_end_session = False
+    return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+    
 def get_help_response():
     
     card_title = "Help"
-    
-    speech_output = "Hello user! This ia a skill to provide you with any admission related or result related or any other general query related with the department of computer science of university of delhi, DUCS, in short. "+\
-                    "Simply ask anything you want to know about DUCS. The available admission queries are - list of available courses in DUCS, the admission procedure for each course, to know how many students were admitted in a particular year, " +\
-                    "number of seats available in each course, and many more. While of result, the available queries are - result of a particular student, result of batch, comparison of results, information of topper, and many more! " +\
-                    "Other general queries include information about the placements! Whatever you want to know, ask away!"
-    reprompt_text = speech_output
-    
     should_end_session = False
+    
+    if authorized_user == False:
+        speech_output = "Hey! This is a skill to resolve your queries, about the department of computer science, university of delhi. D U C S, in short. "+\
+                    "Simply, ask anything you want to know, about DUCS. You can ask for the available courses in DUCS, admission procedure for each course, " +\
+                    ", number of seats available in each course, and many more.  " +\
+                    "You can even ask for basic information, regarding placements! Whatever you want to know, ask away!"
+        reprompt_text = "Try asking something! ."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+    if valid_user == False:
+        speech_output = "Hello! This skill can provide you with a lot of basic information about D U C S. To access priveleged information, you need to LOG IN. It seems like you can do that! Just say, LOG IN. " +\
+                        " You can ask many admission related or result related queries. "+\
+                    " The available admission queries are - list of available courses in DUCS, the admission procedure for each course, number of students admitted in a particular year, " +\
+                    " Admission information as per category, gender, etc.. For results, you can query - result of a particular student, result of a batch, based on subject, semester, etc. and many more! " +\
+                    " Ask away, give it a try.!"
+        reprompt_text = "Say LOG IN, to unlock treasure."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+
+    
+    speech_output = "Congratulations! You can access all the information, we have to offer. For security purposes, log out, by saying LOG OUT, when your device can be accessed by someone else.  " +\
+                    " Now, You can ask many admission related or result related queries. "+\
+                    " The available admission queries are - list of available courses in DUCS, the admission procedure for each course, number of students admitted in a particular year, " +\
+                    " Admission information as per category, gender, etc.. For results, you can query - result of a particular student, result of a batch, based on subject, semester, etc. and many more! " +\
+                    " Additionally, this skill can provide you with a lot of basic information about D U C S. Ask away."
+    reprompt_text = "Say LOG OUT, if you are going away."
     
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
@@ -1299,18 +1600,32 @@ def handle_wrong_input():
 # --------------- Events ------------------
 
 def on_session_started(session_started_request, session):
+    
+    global user_details
+    global pass_pin
+    global valid_user
+    global authorized_user
+    
     session_attributes = {}
+    valid_user = False
+    authorized_user = False
+    pass_pin = 0
+    user_details = {}
     
 
-def on_launch(launch_request, session):
-    return get_welcome_response()
+def on_launch(launch_request, session, access_token):
+    return get_welcome_response(access_token)
 
 
 def on_intent(intent_request, session):
     intent = intent_request['intent']
     intent_name = intent_request['intent']['name']
     
-    if intent_name == "ResultIntent":
+    if intent_name == "LoginIntent":
+        return login(intent, session)
+    elif intent_name == "LogoutIntent":
+        return logout(intent, session)
+    elif intent_name == "ResultIntent":
         return result(intent, session)
     elif intent_name == "AdmissionIntent":
         return admission(intent, session)
@@ -1326,7 +1641,6 @@ def on_intent(intent_request, session):
         return placementTeam(intent, session)
     elif intent_name == "placement":
         return placement(intent, session)
-
     elif intent_name == "AMAZON.HelpIntent":
         return get_help_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
@@ -1343,11 +1657,16 @@ session_attributes = {}
 
 def lambda_handler(event, context):
     
+    try:
+        access_token = event['context']['System']['user']['accessToken']
+    except:
+        access_token = None
+    
     if event['session']['new']:
 	    on_session_started({'requestId': event['request']['requestId']},event['session'])
 		
     if event['request']['type'] == "LaunchRequest":
-        return on_launch(event['request'], event['session'])
+        return on_launch(event['request'], event['session'], access_token)
     elif event['request']['type'] == "IntentRequest":
         return on_intent(event['request'], event['session'])
     elif event['request']['type'] == "SessionEndedRequest":
