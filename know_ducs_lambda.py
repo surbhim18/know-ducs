@@ -212,7 +212,7 @@ def send_passcode(to_mail):
 def is_allowed_access(email):
     
     global authorized_user
-    emails = [""]
+    emails = ["surbhim.mcs17.du@gmail.com"]
     #surbhim.mcs17.du@gmail.com
     if email in emails:
         authorized_user = True
@@ -281,14 +281,11 @@ def login(intent, session):
         reprompt_text = "To know what you can do, say help."
         return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
     
-    
     if not is_in_intent(intent,'pin'):
         if send_passcode(user_details['email']) == 1:
-            speech_output = speech_output + " Your passcode has been sent to your linked email account. Kindly use it to log in. "
-            should_end_session = False
+            speech_output = " Your passcode has been sent to your linked email account. Kindly use it to log in. "
         else:
-            speech_output = speech_output + " There was a problem sending your passcode. Report issue. "
-            should_end_session = True
+            speech_output = " There was a problem sending your passcode. Try again by saying LOG IN."
         reprompt_text = " Enter your passcode. "
         return build_response(session_attributes, build_dialog_elicit_speechlet("pin", intent, card_title, speech_output, reprompt_text))
     
@@ -301,12 +298,11 @@ def login(intent, session):
             update_access(user_details['user_id'], True)
             update_login_time(user_details['user_id'])
             valid_user = True
-            speech_output = "Login successful."
+            speech_output = "Login successful. Say help, to explore."
             reprompt_text = "To know what you can do, say help."
         else:
-            speech_output = "That passcode is incorrect. Login failed. Bye "
+            speech_output = "That passcode is incorrect. Login failed. You can try again by saying LOG IN. "
             reprompt_text = ""
-            should_end_session = True    
          
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
     
@@ -1505,6 +1501,7 @@ def get_welcome_response(access_token):
     session_attributes = {}
     
     card_title = "Welcome"
+    should_end_session = False
     
     if access_token is None:
         speech_output = "Your user details are not available at this time.  Have you completed account linking via the Alexa app?"
@@ -1526,21 +1523,34 @@ def get_welcome_response(access_token):
     response = table.query(KeyConditionExpression=Key('user_id').eq(user_details['user_id']))
     item = response['Items']
     
-    #if new user, user added to database with access as False
-    if bool(item) == False:     
-        put_new_user()          
-    
     wel = welcome_greetings[randint(0,len(welcome_greetings)-1)]
     fname = user_details['name'].split(" ")[0]
     
+    #authorized user or not
     if not is_allowed_access(user_details['email']):
         speech_output = wel + fname + "! Ask queries related to D U C S! "
-        reprompt_text = ""
-    else:
+        reprompt_text = "Say help, to know more."
+        return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
+    
+    #the user doesn't exist in the database
+    if bool(item) == False:     
+        put_new_user()          #user added to database with access as False
         speech_output = wel + fname + "! To access authorized data, say log in! "
         reprompt_text = "Get general queries answered, without logging in! "
+    #the user already exists
+    else:
+        if enough_time_passed(item[0]['login_time']):
+            update_access(user_details['user_id'], False)
+        #logged out
+        if item[0]['access'] == False:
+            speech_output = wel + fname + " You are currently logged out. Log In, or ask for help! "
+            reprompt_text = "Ask for help, if you are stuck."
+        #still logged in
+        else:
+            speech_output = wel + fname + "! How may I help you?"
+            reprompt_text = "Ask for help, if you are stuck."
+            valid_user = True
     
-    should_end_session = False
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 
     
@@ -1561,7 +1571,7 @@ def get_help_response():
         speech_output = "Hello! This skill can provide you with a lot of basic information about D U C S. To access priveleged information, you need to LOG IN. It seems like you can do that! Just say, LOG IN. " +\
                         " You can ask many admission related or result related queries. "+\
                     " The available admission queries are - list of available courses in D U C S, the admission procedure for each course, number of students admitted in a particular year, " +\
-                    " Admission information as per category, gender, etc.. For results, you can query - result of a particular student, result of a batch, based on subject, semester, etc. and many more! " +\
+                    " Admission information as per category, gender, etc.. For results, you can query - result of a particular student, result of a batch, based on subject, semester, etc., and many more! " +\
                     " Ask away, give it a try.!"
         reprompt_text = "Say LOG IN, to unlock treasure."
         return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
