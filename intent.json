@@ -35,6 +35,28 @@
                     "samples": []
                 },
                 {
+                    "name": "LoginIntent",
+                    "slots": [
+                        {
+                            "name": "pin",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "Sign in",
+                        "Log in",
+                        "{pin}"
+                    ]
+                },
+                {
+                    "name": "LogoutIntent",
+                    "slots": [],
+                    "samples": [
+                        "sign out",
+                        "log out"
+                    ]
+                },
+                {
                     "name": "ResultIntent",
                     "slots": [
                         {
@@ -85,16 +107,57 @@
                         }
                     ],
                     "samples": [
-                        "How much did roll number {rollno} of {course} in semester {semester} score in subject {subject} in {batch}",
-                        "what were the {stat} marks in semester {semester} subject {subject} course {course} batch {batch}",
+                        "{stat} marks in {subject}",
+                        "{stat} marks in {semester} semester course {course} batch {batch}",
+                        "{stat} marks in semester {semester} course {course} batch {batch}",
+                        " {stat} marks in {subject} in {semester} semester  {course} batch {batch}",
+                        "what were the {stat} marks in {subject} in {semester} semester  {course} batch {batch}",
+                        " {stat} marks in {subject} in semester {semester}  {course} batch {batch}",
+                        " {stat} marks in {subject} in {semester} semester",
+                        "{stat} marks in {subject} in semester {semester}",
+                        "what were the {stat} marks in {subject} in semester {semester}",
+                        "what were the {stat} marks in {subject} in {semester} semester",
+                        "what were the {stat} marks in {subject} in semester {semester}  {course} batch {batch}",
+                        "who scored the {stat} marks in {subject} in semester {semester}  {course} batch {batch}",
+                        "who scored the {stat} marks in {subject} in {semester} semester",
+                        "who scored the {stat} marks in {subject} in semester {semester}",
                         "what were the {stat} marks in semester {semester} course {course} batch {batch}",
-                        "How much did roll number {rollno} of {course} from batch {batch} score in {subject}",
-                        "How much did roll number {rollno} score in semester {semester} in batch {batch} ",
-                        "How much did roll number {rollno} of {course} score in {subject} in {batch} ",
-                        "How much did roll number {rollno} scored in {subject} Batch {batch} course {course}",
-                        "How much did roll no {rollno} score in semester {semester}  Batch {batch} Course {course}",
+                        "who scored the {stat} marks in semester {semester}",
+                        "who scored the {stat} marks in {semester} semester",
+                        "who scored the {stat} marks in {subject} in {course} batch {batch}",
+                        " who scored {stat} marks in {subject}",
+                        "Tell me about the result of student with roll number {rollno}  in {subject} of {course}",
+                        "Tell me about the result of student with roll number {rollno}  in semester {semester} of {course} in {batch}",
+                        "Tell me about the result of student with roll number {rollno}  in {subject}",
+                        "How much did roll number {rollno} of {course} score in {subject} in {batch}",
+                        "how much did roll number {rollno} score in {subject} in semester {semester}",
+                        "Tell me  the score of student with rollnumber {rollno} of course {course}",
+                        "What is the result of roll number {rollno} in semester {semester}",
+                        "What is the score of roll number {rollno} in {semester}  semester",
+                        "What is the result of roll number {rollno} in {semester}  semester",
+                        "Tell me about the result of student with roll number {rollno}  in semester {semester}",
+                        "Tell me about the result of student with roll number {rollno} of course {course} in semester {semester}",
+                        "Tell me about the result of student with roll number {rollno}  in semester {semester} course {course}",
+                        "How much did roll number {rollno} score in semester {semester}  Batch {batch} Course {course}",
+                        "How much did roll number {rollno} get in semester {semester}",
+                        "how much did roll number {rollno} score in {semester}  semester",
+                        "How much did roll number {rollno} get in {subject} Batch {batch} course {course}",
+                        "marks of student with roll number {rollno} in {semester} in all subjects",
+                        "marks of student with roll number {rollno} in all subjects in semester {semester}",
+                        "marks of student with roll number {rollno} in {subject}",
+                        "Do you know how much did roll number {rollno} score in {subject}",
+                        "Can you tell me how much did roll number {rollno} score in {subject}",
+                        "Can you tell me the marks of roll number {rollno} in {subject}",
+                        "Can you tell me the score of roll number {rollno} in {subject}",
+                        "Tell me how much did roll number {rollno} score in {subject}",
+                        "Tell me the marks of roll number {rollno}  in {subject}",
+                        "Tell me the score of roll number {rollno} in {subject}",
+                        "What was the result of roll number {rollno} in {subject} of {course} {batch}",
                         "What was the result of roll number {rollno} in {subject} of {course}  batch  {batch}",
-                        "What was the result of roll number {rollno} in {subject} of {course} {batch}"
+                        "How much did roll number {rollno} score in {subject} Batch {batch} course {course}",
+                        "How much did roll number {rollno} of {course} {batch} score in {subject}",
+                        "How much did roll number {rollno} of {course} batch {batch} score in {subject}",
+                        "how much did roll number {rollno} score in {subject}"
                     ]
                 },
                 {
@@ -621,6 +684,22 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "LoginIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "pin",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "pin_login"
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -748,6 +827,15 @@
                     {
                         "type": "PlainText",
                         "value": "for which year do you want to know the availability of data"
+                    }
+                ]
+            },
+            {
+                "id": "pin_login",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Enter pin."
                     }
                 ]
             }
