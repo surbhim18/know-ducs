@@ -1,0 +1,756 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "combined skill",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "show sample query please",
+                        "show sample query",
+                        "show sample",
+                        "sample query",
+                        "sample query please",
+                        "sample",
+                        "show me a demo",
+                        "show a demo",
+                        "demo",
+                        "please help me",
+                        "please help",
+                        "help me",
+                        "help",
+                        "help me please",
+                        "how can i get the information i need",
+                        "how can i get the information",
+                        "how to ask queries",
+                        "i dont know what to do"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ResultIntent",
+                    "slots": [
+                        {
+                            "name": "batch",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "samples": [
+                                "{batch} batch",
+                                "Batch {batch}"
+                            ]
+                        },
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "samples": [
+                                "Course {course}",
+                                "{course}"
+                            ]
+                        },
+                        {
+                            "name": "subject",
+                            "type": "subjects",
+                            "samples": [
+                                "{subject}"
+                            ]
+                        },
+                        {
+                            "name": "semester",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{semester} semester",
+                                "Semester {semester}"
+                            ]
+                        },
+                        {
+                            "name": "rollno",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{rollno} roll number",
+                                "Roll number {rollno}"
+                            ]
+                        },
+                        {
+                            "name": "stat",
+                            "type": "stats",
+                            "samples": [
+                                "{stat}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "How much did roll number {rollno} of {course} in semester {semester} score in subject {subject} in {batch}",
+                        "what were the {stat} marks in semester {semester} subject {subject} course {course} batch {batch}",
+                        "what were the {stat} marks in semester {semester} course {course} batch {batch}",
+                        "How much did roll number {rollno} of {course} from batch {batch} score in {subject}",
+                        "How much did roll number {rollno} score in semester {semester} in batch {batch} ",
+                        "How much did roll number {rollno} of {course} score in {subject} in {batch} ",
+                        "How much did roll number {rollno} scored in {subject} Batch {batch} course {course}",
+                        "How much did roll no {rollno} score in semester {semester}  Batch {batch} Course {course}",
+                        "What was the result of roll number {rollno} in {subject} of {course}  batch  {batch}",
+                        "What was the result of roll number {rollno} in {subject} of {course} {batch}"
+                    ]
+                },
+                {
+                    "name": "AdmissionIntent",
+                    "slots": [
+                        {
+                            "name": "category",
+                            "type": "category",
+                            "samples": [
+                                "{category}"
+                            ]
+                        },
+                        {
+                            "name": "gender",
+                            "type": "gender",
+                            "samples": [
+                                "{gender}"
+                            ]
+                        },
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "samples": [
+                                "Course {course}",
+                                "{course}"
+                            ]
+                        },
+                        {
+                            "name": "batch",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "samples": [
+                                "{batch} batch",
+                                "Batch {batch}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "number of {gender} students admitted",
+                        "number of {gender} students admitted in the year {batch}",
+                        "number of {category} students admitted",
+                        "number of {category} students admitted in the year {batch}",
+                        "number of {category} {gender} students admitted",
+                        "number of {category} {gender} students admitted in the year {batch}",
+                        "number of students admitted",
+                        "number of students admitted in the year {batch}",
+                        "the number of {gender} students admitted",
+                        "the number of {gender} students admitted in the year {batch}",
+                        "the number of {category} students admitted",
+                        "the number of {category} students admitted in the year {batch}",
+                        "the number of {category} {gender} students admitted",
+                        "the number of {category} {gender} students admitted in the year {batch}",
+                        "the number of students admitted",
+                        "the number of students admitted in the year {batch}",
+                        "what is the number of {gender} students admitted",
+                        "what is the number of {gender} students admitted in the year {batch}",
+                        "what is the number of {category} students admitted",
+                        "what is the number of {category} students admitted in the year {batch}",
+                        "what is the number of {category} {gender} students admitted",
+                        "what is the number of {category} {gender} students admitted in the year {batch}",
+                        "what is the number of students admitted",
+                        "what is the number of students admitted in the year {batch}",
+                        "tell me the number of {gender} students admitted",
+                        "tell me the number of {gender} students admitted in the year {batch}",
+                        "tell me the number of {category} students admitted",
+                        "tell me the number of {category} students admitted in the year {batch}",
+                        "tell me the number of {category} {gender} students admitted",
+                        "tell me the number of {category} {gender} students admitted in the year {batch}",
+                        "tell me the number of students admitted",
+                        "tell me the number of students admitted in the year {batch}",
+                        "how many students were admitted",
+                        "{gender} {course}",
+                        "{gender} {category} {batch}",
+                        "{category} {course} {batch}",
+                        "{category} {gender} {batch}",
+                        "{course} {batch}",
+                        "{gender} {batch}",
+                        "{category} {batch}",
+                        "admission {batch}",
+                        "{category} {gender} {course} {batch}",
+                        "tell me how many students in {course} {batch}",
+                        "tell me how many {category} {gender} students were admitted in the year {batch}",
+                        "tell me how many {category} students were admitted to the course in the year {batch}",
+                        "tell me how many {gender} students were admitted to the course {course} in the year {batch}",
+                        "tell me how many {gender} students were admitted in the year {batch}",
+                        "tell me how many stundents were admitted to the course {course} in the year {batch}",
+                        "tell me how many {category} students were admitted in the year {batch}",
+                        "tell me how many students were admitted in the year {batch}",
+                        "tell me how many {category} {gender} students were admitted to the course {course} in the year {batch}",
+                        "how many students in {course} {batch}",
+                        "how many {category} {gender} students were admitted in the year {batch}",
+                        "how many {category} students were admitted to the course in the year {batch}",
+                        "how many {gender} students were admitted to the course {course} in the year {batch}",
+                        "how many {gender} students were admitted in the year {batch}",
+                        "how many stundents were admitted to the course {course} in the year {batch}",
+                        "how many {category} students were admitted in the year {batch}",
+                        "how many students were admitted in the year {batch}",
+                        "how many {category} {gender} students were admitted to the course {course} in the year {batch}"
+                    ]
+                },
+                {
+                    "name": "capacityIntent",
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "samples": [
+                                "for the course {course}",
+                                "{course}"
+                            ]
+                        },
+                        {
+                            "name": "category",
+                            "type": "category",
+                            "samples": [
+                                "{category}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "what is the capacity for the {category} students in the course {course}",
+                        "how many {category} students are admitted each year in the course {course}",
+                        "how many {category} students can be admitted in the course {course}",
+                        "maximum {category} students in the course {course}",
+                        "what is the strength of {category} students in the course {course}",
+                        "what is the strength of the course {course}",
+                        "maximum students that can be in {course}",
+                        "how many students can be admitted in the course {course} each year",
+                        "how many students are admitted each year in the course {course}",
+                        "what is the capacity of the course {course}"
+                    ]
+                },
+                {
+                    "name": "CourseInDept",
+                    "slots": [],
+                    "samples": [
+                        "which courses in department",
+                        "courses in department",
+                        "what courses are taught in the department"
+                    ]
+                },
+                {
+                    "name": "admissionProcedure",
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "samples": [
+                                "for the course {course}",
+                                "{course}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "what is the admission procedure for {course}",
+                        "how to take admission in {course}",
+                        "admission procedure for course {course}",
+                        "what is the admission procedure for the course {course}"
+                    ]
+                },
+                {
+                    "name": "dataOfYear",
+                    "slots": [
+                        {
+                            "name": "year",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "samples": [
+                                "for the year {year}",
+                                "{year}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "is the data for the year {year} available",
+                        "do you have data for the year {year}"
+                    ]
+                },
+                {
+                    "name": "placementTeam",
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses"
+                        }
+                    ],
+                    "samples": [
+                        "how is the placement team in the department for {course}",
+                        "how is the placement team in the department",
+                        "how is the placement team in the department for the course {course}",
+                        "what about the department placement team",
+                        "what about the placement team for {course}",
+                        "what about the placement team for the course {course}",
+                        "what about the placement team for the department",
+                        "is there a placement team in the department",
+                        "is there a placement team for {course}",
+                        "is there a placement team in the department for the course {course}",
+                        "is there a placement team for the course {course}"
+                    ]
+                },
+                {
+                    "name": "placement",
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses"
+                        }
+                    ],
+                    "samples": [
+                        "how is the placement record in the department for {course}",
+                        "how is the placement in the department for {course}",
+                        "how is the placement in the department",
+                        "how is the placement record in the department for the course {course}",
+                        "how is the placement in the department for the course {course}",
+                        "what about the department placement record",
+                        "what about the department placement",
+                        "what about the placement record for {course}",
+                        "what about the placement for {course}",
+                        "what about the placement record for the course {course}",
+                        "what about the placement for the course {course}",
+                        "what about the placement record for the department",
+                        "what about the placement for the department",
+                        "is there a placement record of the department",
+                        "is there a placement oppurtunity from the department",
+                        "is there placement for {course}",
+                        "is there a placement record for {course}",
+                        "is there a placement record in the department for the course {course}",
+                        "is there placement in the department for the course {course}",
+                        "is there placement for the course {course}",
+                        "is there a placement record for the course {course}",
+                        "what about the placement for the department",
+                        "what about the placement for course {course}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "courses",
+                    "values": [
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "MCA",
+                                "synonyms": [
+                                    "m c a",
+                                    "mca"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "MSc",
+                                "synonyms": [
+                                    "m s c",
+                                    "msc"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "subjects",
+                    "values": [
+                        {
+                            "id": "MCS-326",
+                            "name": {
+                                "value": "Information security"
+                            }
+                        },
+                        {
+                            "id": "MCS-301",
+                            "name": {
+                                "value": "Minor Project"
+                            }
+                        },
+                        {
+                            "id": "MCS-311",
+                            "name": {
+                                "value": "Algorithms"
+                            }
+                        },
+                        {
+                            "id": "MCS-312",
+                            "name": {
+                                "value": "Data Mining"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "stats",
+                    "values": [
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "average",
+                                "synonyms": [
+                                    "avg"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "maximum",
+                                "synonyms": [
+                                    "highest",
+                                    "max"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "minimum",
+                                "synonyms": [
+                                    "lowest",
+                                    "min"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "category",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "obc"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "st"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sc"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "general"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "gender",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "female"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "male"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "ResultIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "batch",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "batch_result"
+                            }
+                        },
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "course_result"
+                            }
+                        },
+                        {
+                            "name": "subject",
+                            "type": "subjects",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "subject_result"
+                            }
+                        },
+                        {
+                            "name": "semester",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "semester_result"
+                            }
+                        },
+                        {
+                            "name": "rollno",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "rollno_result"
+                            }
+                        },
+                        {
+                            "name": "stat",
+                            "type": "stats",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "stat_result"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "AdmissionIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "category",
+                            "type": "category",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "category_admission"
+                            }
+                        },
+                        {
+                            "name": "gender",
+                            "type": "gender",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "gender_admission"
+                            }
+                        },
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "course_admission"
+                            }
+                        },
+                        {
+                            "name": "batch",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "batch_admission"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "capacityIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "course_capacity"
+                            }
+                        },
+                        {
+                            "name": "category",
+                            "type": "category",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "category_capacity"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "admissionProcedure",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "course",
+                            "type": "courses",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "course_admission_proc"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "dataOfYear",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "year",
+                            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "year_data_year"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "subject_result",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the subject"
+                    }
+                ]
+            },
+            {
+                "id": "semester_result",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the semester"
+                    }
+                ]
+            },
+            {
+                "id": "rollno_result",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the roll number"
+                    }
+                ]
+            },
+            {
+                "id": "stat_result",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the stat"
+                    }
+                ]
+            },
+            {
+                "id": "batch_admission",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the batch"
+                    }
+                ]
+            },
+            {
+                "id": "batch_result",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the batch"
+                    }
+                ]
+            },
+            {
+                "id": "course_result",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the course"
+                    }
+                ]
+            },
+            {
+                "id": "course_admission",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the course"
+                    }
+                ]
+            },
+            {
+                "id": "course_admission_proc",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "for what course do you want to know the admission procedure"
+                    }
+                ]
+            },
+            {
+                "id": "course_capacity",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "For what course do you want the information?"
+                    }
+                ]
+            },
+            {
+                "id": "category_admission",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What category?"
+                    }
+                ]
+            },
+            {
+                "id": "category_capacity",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "which category"
+                    }
+                ]
+            },
+            {
+                "id": "gender_admission",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what is the gender?"
+                    }
+                ]
+            },
+            {
+                "id": "year_data_year",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "for which year do you want to know the availability of data"
+                    }
+                ]
+            }
+        ]
+    }
+}
