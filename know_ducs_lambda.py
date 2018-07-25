@@ -1,3 +1,4 @@
+import requests
 import boto3
 import time
 import json
@@ -211,7 +212,7 @@ def send_passcode(to_mail):
 def is_allowed_access(email):
     
     global authorized_user
-    emails = ["surbhim.mcs17.du@gmail.com"]
+    emails = [""]
     #surbhim.mcs17.du@gmail.com
     if email in emails:
         authorized_user = True
@@ -1407,7 +1408,7 @@ def admission(intent, session):
 
 def dataAvailable(intent, session):
     
-    card_title = "Basic Query"
+    card_title = "Do I Know"
     intent_name = intent['name']
         
     output = ""
@@ -1420,7 +1421,7 @@ def dataAvailable(intent, session):
 
 def admProc(intent, session):
     
-    card_title = "Basic Query"
+    card_title = "Admission Procedure"
     intent_name = intent['name']
 
     output = ""
@@ -1435,7 +1436,7 @@ def admProc(intent, session):
 
 def capacity(intent, session):
     
-    card_title = "Basic Query"
+    card_title = "Capacity"
     intent_name = intent['name']
         
     output = ""
@@ -1449,7 +1450,7 @@ def capacity(intent, session):
 
 def coursesDept(intent, session):
     
-    card_title = "Basic Query"
+    card_title = "What courses?"
     intent_name = intent['name']
 
     output = "The department of computer science offers the following courses - MSC Computer Science, Masters in computer applications that is MCA and PHD."
@@ -1463,7 +1464,7 @@ def coursesDept(intent, session):
     
 def placementTeam(intent, session):
     
-    card_title = "Basic Query"
+    card_title = "Placement Team"
     intent_name = intent['name']
 
     output = "The department have a faculty placement advisor and each year 6 students are selected as placement coordinators. 3 from MCA and 3 from MSC. " +\
@@ -1479,11 +1480,11 @@ def placementTeam(intent, session):
     
 def placement(intent, session):
     
-    card_title = "Basic Query"
+    card_title = "Placement"
     intent_name = intent['name']
 
     output = "The placement record for the department has been phenomenal over the past years. " +\
-            "A lot of companies visit the department for recruitement. A few companies that visit the department for recruitement are - Adobe, Aricent, Cadence, Capgemini, Deloitte, Drishti, Global Logic, HCL, IBM, " +\
+            "A lot of companies visit the department for recruitement. A few companies that have visited the department for recruitement are - Adobe, Aricent, Amazon, Cadence, Capgemini, Deloitte, Drishti, Global Logic, HCL, IBM, " +\
             "Infogain, Make My Trip, Mcafee, Microsoft, Nagarro, Snapdeal, TCS, Tech Mahindra, Thoroughgood, Wipro and many more!"
     
     clear_session_attributes()
@@ -1550,7 +1551,7 @@ def get_help_response():
     
     if authorized_user == False:
         speech_output = "Hey! This is a skill to resolve your queries, about the department of computer science, university of delhi. D U C S, in short. "+\
-                    "Simply, ask anything you want to know, about DUCS. You can ask for the available courses in DUCS, admission procedure for each course, " +\
+                    "Simply, ask anything you want to know, about D U C S. You can ask for the available courses, admission procedure for each course, " +\
                     ", number of seats available in each course, and many more.  " +\
                     "You can even ask for basic information, regarding placements! Whatever you want to know, ask away!"
         reprompt_text = "Try asking something! ."
@@ -1559,7 +1560,7 @@ def get_help_response():
     if valid_user == False:
         speech_output = "Hello! This skill can provide you with a lot of basic information about D U C S. To access priveleged information, you need to LOG IN. It seems like you can do that! Just say, LOG IN. " +\
                         " You can ask many admission related or result related queries. "+\
-                    " The available admission queries are - list of available courses in DUCS, the admission procedure for each course, number of students admitted in a particular year, " +\
+                    " The available admission queries are - list of available courses in D U C S, the admission procedure for each course, number of students admitted in a particular year, " +\
                     " Admission information as per category, gender, etc.. For results, you can query - result of a particular student, result of a batch, based on subject, semester, etc. and many more! " +\
                     " Ask away, give it a try.!"
         reprompt_text = "Say LOG IN, to unlock treasure."
@@ -1568,7 +1569,7 @@ def get_help_response():
     
     speech_output = "Congratulations! You can access all the information, we have to offer. For security purposes, log out, by saying LOG OUT, when your device can be accessed by someone else.  " +\
                     " Now, You can ask many admission related or result related queries. "+\
-                    " The available admission queries are - list of available courses in DUCS, the admission procedure for each course, number of students admitted in a particular year, " +\
+                    " The available admission queries are - list of available courses in D U C S, the admission procedure for each course, number of students admitted in a particular year, " +\
                     " Admission information as per category, gender, etc.. For results, you can query - result of a particular student, result of a batch, based on subject, semester, etc. and many more! " +\
                     " Additionally, this skill can provide you with a lot of basic information about D U C S. Ask away."
     reprompt_text = "Say LOG OUT, if you are going away."
