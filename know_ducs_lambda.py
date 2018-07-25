@@ -1266,7 +1266,7 @@ def get_help_response():
     
     speech_output = "Hello user! This ia a skill to provide you with any admission related or result related or any other general query related with the department of computer science of university of delhi, DUCS, in short. "+\
                     "Simply ask anything you want to know about DUCS. The available admission queries are - list of available courses in DUCS, the admission procedure for each course, to know how many students were admitted in a particular year, " +\
-                    "number of seats available in each course, and many more. While of result, the available queries are - result of a particular student, result of batch, comparison of results, information of topper, and many more! " +|
+                    "number of seats available in each course, and many more. While of result, the available queries are - result of a particular student, result of batch, comparison of results, information of topper, and many more! " +\
                     "Other general queries include information about the placements! Whatever you want to know, ask away!"
     reprompt_text = speech_output
     
