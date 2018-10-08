@@ -212,7 +212,7 @@ def send_passcode(to_mail):
 def is_allowed_access(email):
     
     global authorized_user
-    emails = ["surbhim.mcs17.du@gmail.com"]
+    emails = ["surbhim.mcs17.du@gmail.com","deepti.mcs17.du@gmail.com","shivam.mcs17.du@gmail.com","abhishek.mcs17.du@gmail.com","shivanik.mcs17.du@gmail.com","bhoomika.mcs17.du@gmail.com"]
     #surbhim.mcs17.du@gmail.com
     if email in emails:
         authorized_user = True
